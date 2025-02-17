@@ -160,5 +160,3 @@ The implementation successfully demonstrates the relationship between context-fr
 
 1. Hopcroft, J. E., Motwani, R., & Ullman, M. (2006). _Introduction to Automata Theory, Languages, and Computation_(3rd ed.). Pearson.
 2. Sipser, M. (2012). _Introduction to the Theory of Computation_ (3rd ed.). Cengage Learning.
-
-4o mini
