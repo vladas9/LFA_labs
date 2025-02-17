@@ -150,8 +150,8 @@ func main() {
 
 This code generates five random strings using the grammar and tests if a string belongs to the language defined by the finite automaton.
 ## Results
-![image1](../images/lab1_ex1)
-![image2](../images/lab1_ex2)
+![image1](../images/lab1_ex1.png)
+![image2](../images/lab1_ex2.png)
 ## Conclusions
 
 The implementation successfully demonstrates the relationship between context-free grammar and finite automata. The grammar generates valid strings, and the finite automaton is able to verify whether the generated strings belong to the language it recognizes. The combination of these two components shows how formal languages can be both generated and recognized using automata.
