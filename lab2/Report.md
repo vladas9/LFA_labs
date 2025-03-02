@@ -63,7 +63,7 @@ def classify_grammar(grammar):
             "Context-Free Grammar (Type 2)" if is_context_free else
             "Context-Sensitive Grammar (Type 1)" if is_context_sensitive else
             "Recursively Enumerable Grammar (Type 0)")
-
+```
 #### Explanation of the Code:
 
 1. **Input**: The function takes a grammar in the form of a dictionary with keys:
