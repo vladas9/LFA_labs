@@ -86,15 +86,15 @@ def classify_grammar(grammar):
 The following information is provided for the finite automaton:
 
 - $`Q = \{q_0, q_1, q_2, q_3\}`$ — the set of states.
-- \( \Sigma = \{a, c, b\} \) — the alphabet.
-- \( F = \{q_2\} \) — the set of accepting states.
-- The transition function \( \delta \) is as follows:
-  - \( \delta(q_0, a) = q_0 \)
-  - \( \delta(q_0, a) = q_1 \)
-  - \( \delta(q_1, c) = q_1 \)
-  - \( \delta(q_1, b) = q_2 \)
-  - \( \delta(q_2, b) = q_3 \)
-  - \( \delta(q_3, a) = q_1 \)
+- $`\Sigma = \{a, c, b\}`$ — the alphabet.
+- $`F = \{q_2\}`$ — the set of accepting states.
+- The transition function $`\delta`$ is as follows:
+  - $`\delta(q_0, a) = q_0`$
+  - $`\delta(q_0, a) = q_1`$
+  - $`\delta(q_1, c) = q_1`$
+  - $`\delta(q_1, b) = q_2`$
+  - $`\delta(q_2, b) = q_3`$
+  - $`\delta(q_3, a) = q_1`$
 
 ---
 
@@ -102,49 +102,49 @@ The following information is provided for the finite automaton:
 
 To convert a finite automaton (FA) to a regular grammar, we follow the general rule that each state in the FA corresponds to a non-terminal in the grammar. The transitions in the FA become production rules in the grammar.
 
-1. **States Corresponding to Non-Terminals**: Each state \( q \in Q \) is mapped to a non-terminal symbol \( A_q \). So:
-   - \( q_0 \) becomes \( A_{q_0} \)
-   - \( q_1 \) becomes \( A_{q_1} \)
-   - \( q_2 \) becomes \( A_{q_2} \)
-   - \( q_3 \) becomes \( A_{q_3} \)
+1. **States Corresponding to Non-Terminals**: Each state $`q \in Q`$ is mapped to a non-terminal symbol $`A_q`$. So:
+   - $`q_0`$ becomes $`A_{q_0}`$
+   - $`q_1`$ becomes $`A_{q_1}`$
+   - $`q_2`$ becomes $`A_{q_2}`$
+   - $`q_3`$ becomes $`A_{q_3}`$
 
-2. **Transition Function to Production Rules**: For each transition \( \delta(q, a) = p \), we add a rule in the form:
-   \[
+2. **Transition Function to Production Rules**: For each transition $`\delta(q, a) = p`$, we add a rule in the form:
+   $`
    A_q \rightarrow aA_p
-   \]
-   - \( \delta(q_0, a) = q_0 \) gives the production \( A_{q_0} \rightarrow aA_{q_0} \)
-   - \( \delta(q_0, a) = q_1 \) gives the production \( A_{q_0} \rightarrow aA_{q_1} \)
-   - \( \delta(q_1, c) = q_1 \) gives the production \( A_{q_1} \rightarrow cA_{q_1} \)
-   - \( \delta(q_1, b) = q_2 \) gives the production \( A_{q_1} \rightarrow bA_{q_2} \)
-   - \( \delta(q_2, b) = q_3 \) gives the production \( A_{q_2} \rightarrow bA_{q_3} \)
-   - \( \delta(q_3, a) = q_1 \) gives the production \( A_{q_3} \rightarrow aA_{q_1} \)
+   `$
+   - $`\delta(q_0, a) = q_0`$ gives the production $`A_{q_0} \rightarrow aA_{q_0}`$
+   - $`\delta(q_0, a) = q_1`$ gives the production $`A_{q_0} \rightarrow aA_{q_1}`$
+   - $`\delta(q_1, c) = q_1`$ gives the production $`A_{q_1} \rightarrow cA_{q_1}`$
+   - $`\delta(q_1, b) = q_2`$ gives the production $`A_{q_1} \rightarrow bA_{q_2}`$
+   - $`\delta(q_2, b) = q_3`$ gives the production $`A_{q_2} \rightarrow bA_{q_3}`$
+   - $`\delta(q_3, a) = q_1`$ gives the production $`A_{q_3} \rightarrow aA_{q_1}`$
 
-3. **Final State Transitions**: If a state is an accepting state (in this case \( q_2 \)), the corresponding non-terminal will have a production rule that allows for termination of the string. So:
-   - \( A_{q_2} \rightarrow \epsilon \) (where \( \epsilon \) is the empty string)
+3. **Final State Transitions**: If a state is an accepting state (in this case $`q_2`$), the corresponding non-terminal will have a production rule that allows for termination of the string. So:
+   - $`A_{q_2} \rightarrow \epsilon`$ (where $`\epsilon`$ is the empty string)
 
 The regular grammar corresponding to the FA is:
 
-\[
+$`
 A_{q_0} \rightarrow aA_{q_0} \mid aA_{q_1}
-\]
-\[
+`$
+$`
 A_{q_1} \rightarrow cA_{q_1} \mid bA_{q_2}
-\]
-\[
+`$
+$`
 A_{q_2} \rightarrow bA_{q_3} \mid \epsilon
-\]
-\[
+`$
+$`
 A_{q_3} \rightarrow aA_{q_1}
-\]
+`$
 
 ---
 
 ### Task b: Determine whether the FA is deterministic or non-deterministic
 
-A finite automaton is deterministic (DFA) if for every state \( q \) and input symbol \( a \), there is exactly one transition. In contrast, an automaton is non-deterministic (NDFA) if for some state \( q \) and input symbol \( a \), there are multiple transitions or no transitions at all.
+A finite automaton is deterministic (DFA) if for every state $`q`$ and input symbol $`a`$, there is exactly one transition. In contrast, an automaton is non-deterministic (NDFA) if for some state $`q`$ and input symbol $`a`$, there are multiple transitions or no transitions at all.
 
 Looking at the transitions:
-- \( \delta(q_0, a) = q_0 \) and \( \delta(q_0, a) = q_1 \), which means there are two transitions for the symbol 'a' from state \( q_0 \).
+- $`\delta(q_0, a) = q_0`$ and $`\delta(q_0, a) = q_1`$, which means there are two transitions for the symbol 'a' from state $`q_0`$.
 - This violates the condition for determinism, so the FA is **non-deterministic**.
 
 ---
@@ -191,3 +191,5 @@ dot.edge('q3', 'q1', label='a')
 
 # Render the graph to a file
 dot.render('fa_graph', format='png', view=True)
+```
+
