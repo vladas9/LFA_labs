@@ -85,7 +85,7 @@ def classify_grammar(grammar):
 
 The following information is provided for the finite automaton:
 
-- $ Q = \{q_0, q_1, q_2, q_3\} $ — the set of states.
+- $`Q = \{q_0, q_1, q_2, q_3\}`$ — the set of states.
 - \( \Sigma = \{a, c, b\} \) — the alphabet.
 - \( F = \{q_2\} \) — the set of accepting states.
 - The transition function \( \delta \) is as follows:
