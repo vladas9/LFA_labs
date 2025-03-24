@@ -1,6 +1,7 @@
 import random
 import json
 from functools import reduce
+from collections import defaultdict
 
 def load_config(filename):
     with open(filename, "r") as f:
@@ -28,6 +29,58 @@ def generate_from_non_terminal(production, vt, non_terminal):
 
 def generate_string(config):
     return generate_from_non_terminal(config["production"], set(config["vt"]), config["start_symbol"])
+
+def ndfa_to_dfa(ndfa):
+    Q, sigma, delta, q0, F = ndfa
+
+    # Initialize DFA components
+    dfa = defaultdict(dict)  # Transition table for DFA
+    dfa_states = []  # List of DFA states (sets of NDFA states)
+    dfa_final = set()  # Final states of DFA
+
+    # Start state of DFA is a frozenset containing just the start state of the NDFA
+    start_state = frozenset([q0])
+    dfa_states.append(start_state)
+    if start_state & F:
+        dfa_final.add(start_state)
+
+    # Mapping from NDFA state sets to DFA state indices
+    state_map = {start_state: 0}
+    unprocessed_states = [start_state]  # States to process
+
+    while unprocessed_states:
+        current_state = unprocessed_states.pop()
+
+        for symbol in sigma:
+            # Get the new set of states after the symbol transition
+            next_state = frozenset([q for s in current_state for q in delta[s].get(symbol, [])])
+
+            if next_state:
+                if next_state not in state_map:
+                    # Add new state to DFA
+                    state_map[next_state] = len(dfa_states)
+                    dfa_states.append(next_state)
+                    if next_state & F:
+                        dfa_final.add(next_state)
+
+                    # Add to unprocessed states if it's a new state
+                    unprocessed_states.append(next_state)
+
+                # Add transition to DFA table (store state as frozenset)
+                dfa[state_map[current_state]][symbol] = state_map[next_state]
+
+    # Print only the state transitions in a readable format
+    print("State Transitions:")
+    for current_state in dfa_states:
+        current_state_str = f"{{{' ,'.join(map(str, current_state))}}}"
+        transitions = []
+        for symbol in sigma:
+            if symbol in dfa[state_map[current_state]]:
+                next_state = dfa[state_map[current_state]][symbol]
+                next_state_str = f"{{{' ,'.join(map(str, dfa_states[next_state]))}}}"
+                transitions.append(f"{symbol} -> {next_state_str}")
+        if transitions:
+            print(f"  {current_state_str}: {', '.join(transitions)}")
 
 
 def classify_grammar(grammar):
@@ -68,3 +121,19 @@ if __name__ == "__main__":
     print(f'\nDoes string "{test_string}" belong to the language? {string_belongs_to_language(config["automaton"], test_string)}')
    
     print(classify_grammar(config["grammar"]))
+
+    ndfa = (
+        {'q0', 'q1', 'q2', 'q3'},  
+        {'a', 'b', 'c'},
+        {
+            'q0': {'a': {'q0', 'q1'}},
+            'q1': {'c': {'q1'}, 'b': {'q2'}},
+            'q2': {'b': {'q3'}},
+            'q3': {'a': {'q1'}}
+        },  
+        'q0', 
+        {'q2'}  
+    )
+
+    dfa = ndfa_to_dfa(ndfa)
+    print(dfa)
