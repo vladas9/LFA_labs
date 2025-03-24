@@ -112,7 +112,7 @@ Both notes will be played simultaneously
 
 ---
 
-Conclusion
+## Conclusion
 
 This DSL provides a structured yet flexible way for users to define musical pieces. By breaking the composition into chunks, each with its own constants like time signature, tempo, and volume, it becomes easier to layer and synchronize different instruments such as piano and guitar. The inclusion of clear syntax for note durations, pauses, and loops—along with support for simultaneous playback through sync blocks—ensures that users have the necessary tools to craft intricate musical arrangements. Overall, this DSL serves as a solid foundation for both beginners and advanced musicians to experiment with and refine their creative process.
 
