@@ -1,0 +1,15 @@
+chunk1 {
+        TimeSignature=4/4
+        Tempo=120
+        Volume=80
+        Piano(R, do, 2/4)
+        Piano(L, sol, 1/4)
+        Piano(L, fa, 1/4)
+        sync {
+            Piano(R, re, 1/4)
+            Piano(R, mi, 1/4)
+        }
+        for(note = do; note < sol; note+=1){
+            Piano(R, note, 1/4)
+        }
+    }

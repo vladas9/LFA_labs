@@ -82,7 +82,6 @@ def ndfa_to_dfa(ndfa):
         if transitions:
             print(f"  {current_state_str}: {', '.join(transitions)}")
 
-
 def classify_grammar(grammar):
     vt, production = set(grammar["vt"]), grammar["production"]
 
